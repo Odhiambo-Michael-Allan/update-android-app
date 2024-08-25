@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "Update"
 include(":mobile")
 include(":build-logic:convention")
+include(":feature:foryou")

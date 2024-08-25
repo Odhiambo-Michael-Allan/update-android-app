@@ -46,5 +46,9 @@ gradlePlugin {
             id = "update.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register( "androidApplicationJacoco" ) {
+            id = "update.android.application.jacoco"
+            implementationClass = "AndroidApplicationJacocoConventionPlugin"
+        }
     }
 }
