@@ -1,14 +1,14 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias( libs.plugins.android.library )
+    alias( libs.plugins.jetbrains.kotlin.android )
 }
 
 android {
-    namespace = "com.squad.update.foryou"
+    namespace = "com.squad.update.feature.foryou"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -34,10 +34,13 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation( libs.androidx.core.ktx )
+    implementation( libs.androidx.appcompat )
+
+    implementation( libs.material )
+    implementation( libs.androidx.navigation.compose )
+
+    testImplementation( libs.junit )
+    androidTestImplementation( libs.androidx.junit )
+    androidTestImplementation( libs.androidx.espresso.core )
 }

@@ -1,7 +1,12 @@
 pluginManagement {
-
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -15,6 +20,13 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Update"
-include(":mobile")
-include(":build-logic:convention")
+
+enableFeaturePreview( "TYPESAFE_PROJECT_ACCESSORS" )
+
+include( ":app" )
+include( ":core:data" )
+include( ":core:model" )
+include(":core:designsystem")
 include(":feature:foryou")
+include(":core:datastore")
+include(":core:ui")

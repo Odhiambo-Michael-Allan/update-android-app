@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Update</string>
+    <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+</resources>
