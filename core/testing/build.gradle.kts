@@ -1,13 +1,10 @@
 plugins {
     alias( libs.plugins.android.library )
     alias( libs.plugins.jetbrains.kotlin.android )
-
-    alias( libs.plugins.hilt )
-    alias( libs.plugins.ksp )
 }
 
 android {
-    namespace = "com.squad.update.core.data"
+    namespace = "com.squad.update.core.testing"
     compileSdk = 34
 
     defaultConfig {
@@ -38,17 +35,9 @@ android {
 dependencies {
 
     implementation( projects.core.model )
-    implementation( projects.core.datastore )
+    implementation( projects.core.data )
 
     implementation( libs.androidx.core.ktx )
-    implementation( libs.kotlinx.datetime )
+    implementation( libs.androidx.appcompat )
 
-    implementation( libs.hilt.android )
-    implementation( libs.hilt.core )
-    ksp( libs.hilt.compiler )
-
-    testImplementation( libs.junit )
-
-    androidTestImplementation( libs.androidx.junit )
-    androidTestImplementation( libs.androidx.espresso.core )
 }

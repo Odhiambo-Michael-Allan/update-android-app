@@ -68,6 +68,7 @@ fun UpdateApp(
     }
 
     UpdateAppContent(
+        modifier = modifier,
         appState = appState,
         snackbarHostState = snackbarHostState,
         windowAdaptiveInfo = windowAdaptiveInfo
@@ -140,7 +141,8 @@ internal fun UpdateAppContent(
                     )
             ) {
                 // Show the top app bar on top level destinations.
-                val destination = appState.currentTopLevelDestination
+//                val destination = appState.currentTopLevelDestination
+                val destination = TopLevelDestination.FOR_YOU
                 val shouldShowTopAppBar = destination != null
                 if ( destination != null ) {
                     UpdateTopAppBar(
