@@ -17,8 +17,8 @@ enum class TopLevelDestination (
     val titleTextId: Int,
 ) {
     FOR_YOU(
-        selectedIcon = UpdateIcons.Upcoming,
-        unselectedIcon = UpdateIcons.UpcomingBorder,
+        selectedIcon = UpdateIcons.ForYou,
+        unselectedIcon = UpdateIcons.ForYouBorder,
         iconTextId = forYouR.string.feature_foryou_title,
         titleTextId = R.string.app_name
     )

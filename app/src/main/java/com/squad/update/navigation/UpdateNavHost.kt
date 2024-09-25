@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.squad.update.feature.foryou.navigation.FOR_YOU_ROUTE
+import com.squad.update.feature.foryou.navigation.forYouScreen
 import com.squad.update.ui.UpdateAppState
 
 /**

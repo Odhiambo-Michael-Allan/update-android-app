@@ -6,6 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.squad.update.feature.foryou.ForYouRoute
 
 const val LINKED_NEWS_RESOURCE_ID = "linkedNewsResourceId"
@@ -18,9 +19,12 @@ fun NavController.navigateToForYou( navOptions: NavOptions ) = navigate( FOR_YOU
 fun NavGraphBuilder.forYouScreen( onTopicClick: ( String ) -> Unit ) {
     composable(
         route = FOR_YOU_ROUTE,
-        arguments = listOf(
-            navArgument( LINKED_NEWS_RESOURCE_ID ) { type = NavType.StringType }
-        )
+//        deepLinks = listOf(
+//            navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN }
+//        )
+//        arguments = listOf(
+//            navArgument( LINKED_NEWS_RESOURCE_ID ) { type = NavType.StringType }
+//        )
     ) {
         ForYouRoute(
             onTopicClick = onTopicClick
