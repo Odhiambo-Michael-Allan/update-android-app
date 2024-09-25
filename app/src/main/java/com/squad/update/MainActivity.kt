@@ -132,14 +132,6 @@ class MainActivity : ComponentActivity() {
 
 }
 
-@Composable
-fun Greeting( name: String, modifier: Modifier = Modifier ) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 /**
  * Returns 'true' if the Android theme should be used, as a function of the [uiState]
  */

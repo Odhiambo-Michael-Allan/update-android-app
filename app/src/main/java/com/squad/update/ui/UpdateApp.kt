@@ -1,11 +1,24 @@
 package com.squad.update.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
@@ -17,14 +30,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.squad.update.R
 import com.squad.update.core.designsystem.component.UpdateNavigationSuiteScaffold
+import com.squad.update.core.designsystem.component.UpdateTopAppBar
+import com.squad.update.core.designsystem.icon.UpdateIcons
 import com.squad.update.navigation.TopLevelDestination
 
 @Composable
@@ -50,6 +68,7 @@ fun UpdateApp(
     }
 
     UpdateAppContent(
+        modifier = modifier,
         appState = appState,
         snackbarHostState = snackbarHostState,
         windowAdaptiveInfo = windowAdaptiveInfo
@@ -94,14 +113,62 @@ internal fun UpdateAppContent(
                     },
                     label = { Text(text = stringResource(id = destination.iconTextId))},
                     modifier = Modifier
-                        .testTag( "UpdateNavItem" )
-                        .then( if ( hasUnread ) Modifier.notificationDot() else Modifier )
+                        .testTag("UpdateNavItem")
+                        .then(if (hasUnread) Modifier.notificationDot() else Modifier)
                 )
             }
         },
         windowAdaptiveInfo = windowAdaptiveInfo
     ) {
-
+        Scaffold (
+            modifier = modifier.semantics {
+                testTagsAsResourceId = true
+            },
+            containerColor = Color.Transparent,
+            contentColor = MaterialTheme.colorScheme.onBackground,
+            contentWindowInsets = WindowInsets( 0, 0, 0, 0 ),
+            snackbarHost = { SnackbarHost( hostState = snackbarHostState ) }
+        ) { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Horizontal
+                        )
+                    )
+            ) {
+                // Show the top app bar on top level destinations.
+//                val destination = appState.currentTopLevelDestination
+                val destination = TopLevelDestination.FOR_YOU
+                val shouldShowTopAppBar = destination != null
+                if ( destination != null ) {
+                    UpdateTopAppBar(
+                        titleRes = destination.titleTextId,
+                        navigationIcon = UpdateIcons.Search,
+                        navigationIconContentDescription = "",
+                        actionIcon = UpdateIcons.Settings,
+                        actionIconContentDescription = "",
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = Color.Transparent
+                        ),
+                        onActionClick = {},
+                        onNavigationClick = {}
+                    )
+                }
+                Box(
+                    // Workaround for https://issuetracker.google.com/338478720
+                    modifier = Modifier.consumeWindowInsets(
+                        if ( shouldShowTopAppBar ) WindowInsets.safeDrawing.only( WindowInsetsSides.Top )
+                        else WindowInsets( 0, 0, 0, 0 )
+                    )
+                ) {
+                    Text( text = "Feature Under Construction" )
+                }
+            }
+        }
     }
 }
 
