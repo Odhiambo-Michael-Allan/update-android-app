@@ -1,8 +1,10 @@
 package com.squad.update.core.data.di
 
 import com.squad.update.core.data.repository.NewsRepository
+import com.squad.update.core.data.repository.TopicsRepository
 import com.squad.update.core.data.repository.UserDataRepository
 import com.squad.update.core.data.repository.impl.OfflineFirstNewsRepository
+import com.squad.update.core.data.repository.impl.OfflineFirstTopicsRepository
 import com.squad.update.core.data.repository.impl.OfflineFirstUserDataRepository
 import com.squad.update.core.data.util.NetworkMonitor
 import com.squad.update.core.data.util.TimeZoneMonitor
@@ -34,4 +36,9 @@ abstract class DataModule {
     internal abstract fun bindsNewsResourceRepository(
         newsRepository: OfflineFirstNewsRepository
     ): NewsRepository
+
+    @Binds
+    internal abstract fun bindsTopicRepository(
+        topicsRepository: OfflineFirstTopicsRepository,
+    ): TopicsRepository
 }
