@@ -1,6 +1,7 @@
 plugins {
     alias( libs.plugins.android.library )
     alias( libs.plugins.jetbrains.kotlin.android )
+
     alias( libs.plugins.compose )
 }
 
@@ -45,6 +46,10 @@ dependencies {
     implementation( libs.androidx.material3 )
 
     implementation( libs.androidx.navigation.compose )
+    implementation( libs.androidx.compose.foundation.layout )
+
+    implementation( libs.androidx.compose.runtime )
+    implementation( libs.androidx.compose.ui.tooling )
 
     testImplementation( libs.junit )
     androidTestImplementation( libs.androidx.junit )
