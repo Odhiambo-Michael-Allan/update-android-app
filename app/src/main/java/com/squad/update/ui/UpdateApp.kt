@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
@@ -44,6 +45,7 @@ import com.squad.update.core.designsystem.component.UpdateNavigationSuiteScaffol
 import com.squad.update.core.designsystem.component.UpdateTopAppBar
 import com.squad.update.core.designsystem.icon.UpdateIcons
 import com.squad.update.navigation.TopLevelDestination
+import com.squad.update.navigation.UpdateNavHost
 
 @Composable
 fun UpdateApp(
@@ -165,7 +167,16 @@ internal fun UpdateAppContent(
                         else WindowInsets( 0, 0, 0, 0 )
                     )
                 ) {
-                    Text( text = "Feature Under Construction" )
+                    UpdateNavHost(
+                        appState = appState,
+                        onShowSnackBar = { message, action ->
+                            snackbarHostState.showSnackbar(
+                                message = message,
+                                actionLabel = action,
+                                duration = SnackbarDuration.Short
+                            ) == SnackbarResult.ActionPerformed
+                        }
+                    )
                 }
             }
         }

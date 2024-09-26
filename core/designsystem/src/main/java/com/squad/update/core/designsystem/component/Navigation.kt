@@ -263,12 +263,12 @@ object UpdateNavigationDefaults {
 fun UpdateNavigationRailPreview() {
     val items = listOf( "For you", "Saved", "Interests" )
     val icons = listOf(
-        UpdateIcons.UpcomingBorder,
+        UpdateIcons.ForYouBorder,
         UpdateIcons.BookmarksBorder,
         UpdateIcons.Grid3x3
     )
     val selectedIcons = listOf(
-        UpdateIcons.Upcoming,
+        UpdateIcons.ForYou,
         UpdateIcons.Bookmarks,
         UpdateIcons.Grid3x3
     )
@@ -302,12 +302,12 @@ fun UpdateNavigationRailPreview() {
 fun UpdateNavigationBarPreview() {
     val items = listOf( "For you", "Saved", "Interests" )
     val icons = listOf(
-        UpdateIcons.UpcomingBorder,
+        UpdateIcons.ForYouBorder,
         UpdateIcons.BookmarkBorder,
         UpdateIcons.Grid3x3
     )
     val selectedIcons = listOf(
-        UpdateIcons.Upcoming,
+        UpdateIcons.ForYou,
         UpdateIcons.Bookmarks,
         UpdateIcons.Grid3x3
     )
