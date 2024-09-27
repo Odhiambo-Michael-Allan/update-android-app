@@ -17,6 +17,8 @@ import androidx.compose.material.icons.rounded.Grid3x3
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material.icons.rounded.ViewDay
 
 /**
@@ -45,4 +47,7 @@ object UpdateIcons {
 
     val ForYouBorder = Icons.Outlined.Face6
     val ViewDay = Icons.Rounded.ViewDay
+
+    val Following = Icons.Rounded.Star
+    val FollowingBorder = Icons.Rounded.StarBorder
 }

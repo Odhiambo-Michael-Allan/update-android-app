@@ -62,7 +62,7 @@ fun UpdateTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = UpdateTypography,
         content = content
     )
 }

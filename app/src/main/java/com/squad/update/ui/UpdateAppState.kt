@@ -13,6 +13,7 @@ import androidx.navigation.navOptions
 import com.squad.update.core.data.repository.UserNewsResourceRepository
 import com.squad.update.core.data.util.NetworkMonitor
 import com.squad.update.core.data.util.TimeZoneMonitor
+import com.squad.update.feature.following.navigation.navigateToFollowing
 import com.squad.update.feature.foryou.navigation.FOR_YOU_ROUTE
 import com.squad.update.feature.foryou.navigation.navigateToForYou
 import com.squad.update.navigation.TopLevelDestination
@@ -126,6 +127,7 @@ class UpdateAppState(
         }
         when ( topLevelDestination ) {
             TopLevelDestination.FOR_YOU -> navController.navigateToForYou( topLevelNavOptions )
+            TopLevelDestination.FOLLOWING -> navController.navigateToFollowing( topLevelNavOptions )
         }
     }
 

@@ -63,6 +63,7 @@ dependencies {
     implementation( projects.feature.foryou )
 
     implementation( projects.core.ui )
+    implementation( projects.feature.following )
 
     implementation( libs.androidx.core.ktx )
     implementation( libs.androidx.lifecycle.runtime.ktx )

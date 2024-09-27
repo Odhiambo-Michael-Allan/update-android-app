@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_following_title">Following</string>
+    <string name="feature_following_topicselection_guidance_title">Follow your interests</string>
+    <string name="feature_following_topicselection_guidance_subtitle">Choose topics that will appear in your For You news feed and under what you are Following</string>
+</resources>

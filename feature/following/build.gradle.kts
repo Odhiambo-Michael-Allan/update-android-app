@@ -1,10 +1,11 @@
 plugins {
     alias( libs.plugins.android.library )
     alias( libs.plugins.jetbrains.kotlin.android )
+    alias( libs.plugins.compose )
 }
 
 android {
-    namespace = "com.squad.update.core.ui"
+    namespace = "com.squad.update.feature.following"
     compileSdk = 34
 
     defaultConfig {
@@ -30,20 +31,27 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
 
+    implementation( projects.core.designsystem )
+    implementation( projects.core.ui )
+
+    implementation( projects.core.model )
+
     implementation( libs.androidx.core.ktx )
     implementation( libs.androidx.appcompat )
 
-    implementation( libs.material )
-    implementation( libs.kotlinx.datetime )
-
     implementation( platform( libs.androidx.compose.bom ) )
-    implementation( libs.androidx.compose.runtime )
+    implementation( libs.androidx.material3 )
 
-    implementation( projects.core.model )
+    implementation( libs.androidx.navigation.compose )
+
+    implementation( libs.material )
 
     testImplementation( libs.junit )
 

@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.squad.update.R
 import com.squad.update.core.designsystem.icon.UpdateIcons
 import com.squad.update.feature.foryou.R as forYouR
+import com.squad.update.feature.following.R as followingR
 
 /**
  * Type for the top level destination in the application. Each of these destinations can contain
@@ -21,5 +22,12 @@ enum class TopLevelDestination (
         unselectedIcon = UpdateIcons.ForYouBorder,
         iconTextId = forYouR.string.feature_foryou_title,
         titleTextId = R.string.app_name
+    ),
+    FOLLOWING(
+        selectedIcon = UpdateIcons.Following,
+        unselectedIcon = UpdateIcons.FollowingBorder,
+        iconTextId = followingR.string.feature_following_title,
+        titleTextId = followingR.string.feature_following_title,
+
     )
 }
