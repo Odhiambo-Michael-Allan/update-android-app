@@ -115,5 +115,41 @@ object PreviewParameterData {
             ),
             userData = userData,
         ),
+        UserNewsResource(
+            newsResource = NewsResource(
+                id = "4",
+                title = "Our first Spotlight Week: diving into Android 15",
+                content = "By now, you’ve probably heard the news: Android 15 was just released" +
+                        " earlier today to AOSP. To celebrate, we’re kicking off a new series" +
+                        " called “Spotlight Week” where we’ll shine a light on technical" +
+                        " areas across Android development and equip you with the tools" +
+                        " you need to take advantage of each area.",
+                url = "https://youtu.be/ZARz0pjm5YM",
+                headerImageUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTydOm5voDz-5BOLceHlbNYE7m_L9xE8Ze6-UKQ3cDufxRLrO7EgtA57PALcouXbo6TtSY6c0_QGRPFSqH4igiaOf7pCHCxvMxqwhgwRZMwKSsZEuDNjJ0PBHM-JcyI_pH2_VoxNcqiTi3FbZ8GfRtasRwOAbQkbsSItQ1-4bQn-gydBHJiGbQpUzsxMg/s1600/AndroidSpotlight_Android15_Blog_Header.png",
+                publishDate = Instant.parse("2021-11-01T00:00:00.000Z"),
+                type = "Video 📺",
+                topics = listOf(topics[2]),
+            ),
+            userData = userData,
+        ),
+        UserNewsResource(
+            newsResource = NewsResource(
+                id = "5",
+                title = "AllTrails gains over 1 million downloads after implementing its Wear OS app",
+                content = "With more than 65 million global users, AllTrails is one of the world’s" +
+                        " most popular and trusted platforms for outdoor exploration. The app is" +
+                        " designed to be the ultimate adventure companion, so the AllTrails team" +
+                        " always works to improve users’ outdoor experience using the latest" +
+                        " technology. Recently, its developers created a new Wear OS" +
+                        " application. Now, users can access their favorite AllTrails" +
+                        " features using their favorite Android wearables.",
+                url = "https://youtu.be/ZARz0pjm5YM",
+                headerImageUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRjX7k75TQLi3ETLKpHXHiT3CHjvO-QfV9DEnBBawdQeOTqJzQ3e9B-nzGmQxfwF_L5RPMV7hqNAMEm_JKQ7-MMRd25jkPUtn9gh2uIC59nDBFGyTMUSUmeIS0azpRTaMsDhaYMLkE3tQxi_iUhCoFdS5cuX3k5wY9wJ2bxjxNplOnEWEUN65u_yAWAvs/s1600/image4.gif",
+                publishDate = Instant.parse("2021-11-01T00:00:00.000Z"),
+                type = "Video 📺",
+                topics = listOf( topics[1] ),
+            ),
+            userData = userData,
+        ),
     )
 }

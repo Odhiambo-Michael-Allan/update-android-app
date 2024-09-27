@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ConnectivityManagerNetworkMonitor @Inject constructor() : NetworkMonitor {
 
-    private val connectivityFlow = MutableStateFlow( false )
+    private val connectivityFlow = MutableStateFlow( true )
 
     override val isOnline = connectivityFlow
 }

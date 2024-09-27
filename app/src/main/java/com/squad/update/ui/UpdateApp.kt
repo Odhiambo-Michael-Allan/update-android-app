@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
@@ -113,7 +114,12 @@ internal fun UpdateAppContent(
                             contentDescription = null
                         )
                     },
-                    label = { Text(text = stringResource(id = destination.iconTextId))},
+                    label = {
+                        Text(
+                            text = stringResource( id = destination.iconTextId ),
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    },
                     modifier = Modifier
                         .testTag("UpdateNavItem")
                         .then(if (hasUnread) Modifier.notificationDot() else Modifier)

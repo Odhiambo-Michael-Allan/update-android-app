@@ -12,10 +12,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridScope
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -39,11 +48,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.squad.update.core.designsystem.component.DynamicAsyncImage
+import com.squad.update.core.designsystem.component.UpdateButton
+import com.squad.update.core.designsystem.component.UpdateOutlinedButton
 import com.squad.update.core.designsystem.theme.UpdateTheme
 import com.squad.update.core.model.data.UserNewsResource
 import com.squad.update.core.ui.DevicePreviews
+import com.squad.update.core.ui.NewsFeedUiState
 import com.squad.update.core.ui.PreviewParameterData
+import com.squad.update.core.ui.TopicIcon
 import com.squad.update.core.ui.UserNewsResourcePreviewParameterProvider
+import com.squad.update.core.ui.newsFeed
 
 @Composable
 internal fun FollowingRoute(
@@ -51,6 +65,7 @@ internal fun FollowingRoute(
 ) {
     FollowingScreen(
         isSyncing = true,
+        newsFeedUiState = NewsFeedUiState.Success( feed = PreviewParameterData.newsResources ),
         topicSelectionUiState = TopicSelectionUiState.Shown(
             topics = PreviewParameterData.newsResources.flatMap { news -> news.followableTopics }
                 .distinctBy { it.topic.id }
@@ -65,6 +80,7 @@ internal fun FollowingRoute(
 internal fun FollowingScreen(
     modifier: Modifier = Modifier,
     isSyncing: Boolean,
+    newsFeedUiState: NewsFeedUiState,
     topicSelectionUiState: TopicSelectionUiState,
     onTopicCheckedChanged: (String, Boolean ) -> Unit,
     onTopicClick: ( String ) -> Unit,
@@ -72,20 +88,22 @@ internal fun FollowingScreen(
 ) {
     val isTopicSelectionLoading = topicSelectionUiState is TopicSelectionUiState.Loading
 
-    val state = rememberLazyStaggeredGridState()
+    val state = rememberLazyGridState()
 
     Box(
         modifier = modifier
             .fillMaxSize()
     ) {
-        LazyVerticalStaggeredGrid(
+        LazyVerticalGrid(
             modifier = Modifier
                 .testTag( "following:feed" ),
-            columns = StaggeredGridCells.Adaptive( 300.dp ),
-            contentPadding = PaddingValues( 16.dp ),
+            columns = GridCells.Adaptive( 300.dp ),
             horizontalArrangement = Arrangement.spacedBy( 16.dp ),
             state = state
         ) {
+            newsFeed(
+                feedState = newsFeedUiState,
+            )
             topicSelection(
                 topicSelectionUiState = topicSelectionUiState,
                 onTopicCheckedChanged = onTopicCheckedChanged,
@@ -104,13 +122,13 @@ internal fun FollowingScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding( top = 8.dp )
+                    .padding(top = 8.dp)
             ) {
                 Card(
                     modifier = Modifier
-                        .align( Alignment.Center )
-                        .size( 48.dp )
-                        .padding( 4.dp ),
+                        .align(Alignment.Center)
+                        .size(48.dp)
+                        .padding(4.dp),
                     onClick = {},
                     shape = RoundedCornerShape( 100.dp ),
                     elevation = CardDefaults.cardElevation(
@@ -122,8 +140,8 @@ internal fun FollowingScreen(
                     ) {
                         CircularProgressIndicator(
                             modifier = Modifier
-                                .align( Alignment.Center )
-                                .size( 24.dp ),
+                                .align(Alignment.Center)
+                                .size(24.dp),
                         )
                     }
                 }
@@ -136,7 +154,7 @@ internal fun FollowingScreen(
  * An extension on [LazyListScope] defining the topic selection portion of the following screen.
  * Depending on the [topicSelectionUiState], this might emit no items.
  */
-private fun LazyStaggeredGridScope.topicSelection(
+private fun LazyGridScope.topicSelection(
     modifier: Modifier = Modifier,
     topicSelectionUiState: TopicSelectionUiState,
     onTopicCheckedChanged: ( String, Boolean ) -> Unit,
@@ -149,34 +167,70 @@ private fun LazyStaggeredGridScope.topicSelection(
             -> Unit
 
         is TopicSelectionUiState.Shown -> {
-            item( span = StaggeredGridItemSpan.FullLine, contentType = "topic-selection" ) {
+            item(
+                span = {
+                    GridItemSpan( maxLineSpan )
+                },
+                contentType = "topic-selection"
+            ) {
                 Column( modifier = modifier ) {
+                    Spacer( modifier = Modifier.height( 16.dp ) )
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding( top = 24.dp ),
+                            .padding(16.dp, 2.dp),
                         text = stringResource(
                             id = R.string.feature_following_topicselection_guidance_title
                         ),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp, start = 24.dp, end = 24.dp),
+                            .padding(16.dp, 2.dp),
                         text = stringResource(
                             id = R.string.feature_following_topicselection_guidance_subtitle
                         ),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyMedium
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold
                     )
+                    Spacer( modifier = Modifier.height( 8.dp ) )
                     TopicSelection(
-                        modifier = Modifier.padding( bottom = 8.dp ),
+                        modifier = Modifier.padding( 16.dp, 8.dp ),
                         topicSelectionUiState = topicSelectionUiState,
                         onTopicCheckedChanged = onTopicCheckedChanged
                     )
+                    Row(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        UpdateOutlinedButton(
+                            modifier = Modifier.weight( 1f ),
+                            onClick = { /*TODO*/ }
+                        ) {
+                            Text(
+                                text = stringResource( id = R.string.feature_following_see_more_topics ),
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        UpdateButton(
+                            modifier = Modifier
+                                .padding( horizontal = 8.dp ),
+                            onClick = saveFollowedTopics,
+                            enabled = topicSelectionUiState.isDismissible,
+                        ) {
+                            Text(
+                                text = stringResource( id = R.string.feature_following_done ),
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -192,9 +246,9 @@ private fun TopicSelection(
 ) {
     FlowRow (
         modifier = modifier
-            .padding( 8.dp )
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy( 8.dp )
+        horizontalArrangement = Arrangement.spacedBy( 8.dp ),
+        verticalArrangement = Arrangement.spacedBy( 8.dp )
     ) {
         topicSelectionUiState.topics.forEach {
             SingleTopicButton(
@@ -223,8 +277,10 @@ private fun SingleTopicButton(
         },
         label = {
             Text(
+                modifier = Modifier.padding( 0.dp, 16.dp ),
                 text = name,
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold
             )
         },
         leadingIcon = {
@@ -232,20 +288,6 @@ private fun SingleTopicButton(
                 imageUrl = imageUrl
             )
         }
-    )
-}
-
-@Composable
-fun TopicIcon(
-    modifier: Modifier = Modifier,
-    imageUrl: String,
-) {
-    DynamicAsyncImage(
-        modifier = modifier
-            .size( 32.dp ),
-        placeholder = painterResource( id = R.drawable.feature_following_ic_icon_placeholder ),
-        imageUrl = imageUrl,
-        contentDescription = null,
     )
 }
 
@@ -258,6 +300,9 @@ fun FollowingScreenTopicSelection(
     UpdateTheme {
         FollowingScreen(
             isSyncing = true,
+            newsFeedUiState = NewsFeedUiState.Success(
+                feed = userNewsResources
+            ),
             topicSelectionUiState = TopicSelectionUiState.Shown(
                 topics = userNewsResources.flatMap { news -> news.followableTopics }
                     .distinctBy { it.topic.id }
