@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -130,8 +131,8 @@ fun NewsResourceCardWithSideHeaderImage(
             Row {
                 Text(
                     modifier = Modifier
-                        .weight( 1f )
-                        .padding( end = 4.dp ),
+                        .weight(1f)
+                        .padding(end = 4.dp),
                     text = userNewsResource.title,
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -190,13 +191,14 @@ fun NewsResourceHeaderImage(
             contentAlignment = Alignment.Center
         ) {
             if ( isLoading ) {
-                // Display a progress bar while loading
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(80.dp),
-                    color = MaterialTheme.colorScheme.tertiary
-                )
+                Card(
+                    modifier = Modifier.fillMaxSize(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
+                            alpha = .7f
+                        )
+                    )
+                ) {}
             }
             Image(
                 modifier = modifier,

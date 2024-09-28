@@ -15,6 +15,10 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * Implements a [UserNewsResourceRepository] by combining a [NewsRepository] with a
+ * [UserDataRepository].
+ */
 @OptIn( ExperimentalCoroutinesApi::class )
 class CompositeUserNewsResourceRepository @Inject constructor(
     val newsRepository: NewsRepository,

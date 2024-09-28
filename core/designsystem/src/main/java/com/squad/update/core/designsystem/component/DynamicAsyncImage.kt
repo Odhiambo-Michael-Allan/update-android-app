@@ -2,7 +2,10 @@ package com.squad.update.core.designsystem.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -52,14 +55,14 @@ fun DynamicAsyncImage(
         contentAlignment = Alignment.Center
     ) {
         if ( isLoading && !isLocalInspection ) {
-            // Display a progress bar while loading.
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align( Alignment.Center)
-                    .size( 20.dp ),
-                color = MaterialTheme.colorScheme.tertiary,
-                strokeWidth = 2.dp,
-            )
+            Card(
+                modifier = Modifier.fillMaxSize(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
+                        alpha = .7f
+                    )
+                )
+            ) {}
         }
         Image(
             contentScale = ContentScale.Crop,

@@ -30,7 +30,7 @@ object PreviewParameterData {
         followedTopics = emptySet(),
         themeBrand = ThemeBrand.ANDROID,
         darkThemeConfig = DarkThemeConfig.DARK,
-        shouldHideOnboarding = true,
+        shouldHideTopicSelection = true,
         useDynamicColor = false,
     )
 
@@ -148,6 +148,21 @@ object PreviewParameterData {
                 publishDate = Instant.parse("2021-11-01T00:00:00.000Z"),
                 type = "Video 📺",
                 topics = listOf( topics[1] ),
+            ),
+            userData = userData,
+        ),
+        UserNewsResource(
+            newsResource = NewsResource(
+                id = "5",
+                title = "Attestation format change for the Android FIDO2 API",
+                content = "In 2019 we introduced a FIDO2 API, adopted by many leading developers, " +
+                        "which allows users to generate an attested, device-bound FIDO2" +
+                        " credential on Android devices.",
+                url = "https://youtu.be/ZARz0pjm5YM",
+                headerImageUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFZAwTuEczCixWe-6SN-cKy9wx7VuFML578tLjcX-sI4TfzG0M3Y7ODYo_dOEWZzrizvLDgQit-aRGtvmixausO1waHpb_ERBvwmkX6vMMBdFqJXMTGfW43B2KyVZVigGgRcBESvFnR8UST5aAzRBM1mn7FSz-ICYUoxe44NfsxAinWDB48XOhMN_rVEg/s1600/header-Blog-post-describing-migration-from-existing-Auth-APIs-to-CredMan-API.png",
+                publishDate = Instant.parse("2021-11-01T00:00:00.000Z"),
+                type = "Video 📺",
+                topics = listOf( topics[2] ),
             ),
             userData = userData,
         ),

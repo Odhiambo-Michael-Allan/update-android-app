@@ -37,6 +37,7 @@ import com.squad.update.core.designsystem.icon.UpdateIcons
 import com.squad.update.core.designsystem.theme.UpdateTheme
 import com.squad.update.core.model.data.FollowableTopic
 import com.squad.update.core.model.data.UserNewsResource
+import kotlin.math.min
 
 /**
  * An extension on [LazyListScope] defining a feed with news resources. Depending on the [feedState],
@@ -60,7 +61,7 @@ fun LazyGridScope.newsFeed(
                         onToggleFollowed = {}
                     )
                 }
-                newsResources.forEach { newsResource ->
+                newsResources.subListNonStrict( 3 ).forEach { newsResource ->
                     item {
                         NewsResourceCardWithSideHeaderImage(
                             userNewsResource = newsResource,
@@ -172,6 +173,9 @@ sealed interface NewsFeedUiState {
         val feed: List<UserNewsResource>
     ) : NewsFeedUiState
 }
+
+fun <T> List<T>.subListNonStrict( length: Int, start: Int = 0 ) =
+    subList( start, min( start + length, size ))
 
 @Preview
 @Composable

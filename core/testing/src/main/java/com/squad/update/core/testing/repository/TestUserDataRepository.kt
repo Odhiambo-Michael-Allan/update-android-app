@@ -16,7 +16,7 @@ val emptyUserData = UserData(
     themeBrand = ThemeBrand.DEFAULT,
     darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
     useDynamicColor = false,
-    shouldHideOnboarding = false
+    shouldHideTopicSelection = false
 )
 
 class TestUserDataRepository : UserDataRepository {
@@ -89,9 +89,9 @@ class TestUserDataRepository : UserDataRepository {
         }
     }
 
-    override suspend fun setShouldHideOnboarding( shouldHideOnboarding: Boolean ) {
+    override suspend fun setShouldHideTopicSelection(shouldHideOnboarding: Boolean ) {
         currentUserData.let { current ->
-            _userData.tryEmit( current.copy( shouldHideOnboarding = shouldHideOnboarding ) )
+            _userData.tryEmit( current.copy( shouldHideTopicSelection = shouldHideOnboarding ) )
         }
     }
 
