@@ -30,7 +30,7 @@ import org.junit.Test
  * To learn more about how this test handles Flows created with stateIn, see
  * https://developer.android.com/kotlin/flow/test#statein
  */
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn( ExperimentalCoroutinesApi::class)
 class FollowingScreenViewModelTest {
 
     @get:Rule

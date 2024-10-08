@@ -1,6 +1,9 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias( libs.plugins.android.library )
+    alias( libs.plugins.jetbrains.kotlin.android )
+    alias( libs.plugins.hilt )
+
+    alias( libs.plugins.ksp )
 }
 
 android {
@@ -33,11 +36,17 @@ android {
 }
 
 dependencies {
+    api( projects.core.datastoreProto )
+    api( projects.core.model )
+    api( libs.androidx.dataStore )
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation( projects.core.common )
+
+    implementation( libs.hilt.core )
+    implementation( libs.hilt.android )
+    ksp( libs.hilt.compiler )
+
+    testImplementation( projects.core.datastoreTest )
+    testImplementation( libs.kotlinx.coroutines.test )
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

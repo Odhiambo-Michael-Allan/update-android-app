@@ -6,6 +6,7 @@ plugins {
     alias( libs.plugins.hilt )
 
     alias( libs.plugins.ksp )
+    alias( libs.plugins.kotlin.serialization )
 }
 
 android {
@@ -65,6 +66,9 @@ dependencies {
     ksp( libs.hilt.compiler )
 
     implementation( libs.kotlinx.datetime )
+    implementation( libs.androidx.hilt.navigation.compose )
+
+    implementation( libs.kotlinx.serialization.json )
 
     testImplementation( libs.junit )
     testImplementation( projects.core.testing )

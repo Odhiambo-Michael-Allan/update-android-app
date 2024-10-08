@@ -47,8 +47,5 @@ interface UserDataRepository {
      */
     suspend fun setDynamicColorPreference( useDynamicColor: Boolean )
 
-    /**
-     * Sets whether the user has completed the onboarding process.
-     */
-    suspend fun setShouldHideTopicSelection(shouldHideOnboarding: Boolean )
+    suspend fun setShouldHideTopicSelection( shouldHideTopicSelection: Boolean )
 }

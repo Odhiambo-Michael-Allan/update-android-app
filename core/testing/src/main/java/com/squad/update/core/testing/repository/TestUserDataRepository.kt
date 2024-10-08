@@ -89,9 +89,9 @@ class TestUserDataRepository : UserDataRepository {
         }
     }
 
-    override suspend fun setShouldHideTopicSelection(shouldHideOnboarding: Boolean ) {
+    override suspend fun setShouldHideTopicSelection(shouldHideTopicSelection: Boolean ) {
         currentUserData.let { current ->
-            _userData.tryEmit( current.copy( shouldHideTopicSelection = shouldHideOnboarding ) )
+            _userData.tryEmit( current.copy( shouldHideTopicSelection = shouldHideTopicSelection ) )
         }
     }
 

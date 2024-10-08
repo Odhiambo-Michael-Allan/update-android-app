@@ -39,6 +39,7 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -48,6 +49,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.squad.update.core.designsystem.component.DynamicAsyncImage
 import com.squad.update.core.designsystem.component.UpdateButton
 import com.squad.update.core.designsystem.component.UpdateOutlinedButton
@@ -61,19 +64,23 @@ import com.squad.update.core.ui.UserNewsResourcePreviewParameterProvider
 import com.squad.update.core.ui.newsFeed
 
 @Composable
-internal fun FollowingRoute(
+internal fun FollowingScreen(
     modifier: Modifier = Modifier,
+    viewModel: FollowingScreenViewModel = hiltViewModel(),
+    onTopicClick: ( String ) -> Unit,
 ) {
+
+    val topicSelectionUiState by viewModel.topicSelectionUiState.collectAsStateWithLifecycle()
+    val feedState by viewModel.feedState.collectAsStateWithLifecycle()
+    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
+
     FollowingScreen(
-        isSyncing = true,
-        newsFeedUiState = NewsFeedUiState.Success( feed = PreviewParameterData.newsResources ),
-        topicSelectionUiState = TopicSelectionUiState.Shown(
-            topics = PreviewParameterData.newsResources.flatMap { news -> news.followableTopics }
-                .distinctBy { it.topic.id }
-        ),
-        onTopicCheckedChanged = { _, _ -> },
-        onTopicClick = {},
-        saveFollowedTopics = {}
+        isSyncing = isSyncing,
+        newsFeedUiState = feedState,
+        topicSelectionUiState = topicSelectionUiState,
+        onTopicCheckedChanged = viewModel::updateTopicSelection,
+        onTopicClick = onTopicClick,
+        saveFollowedTopics = viewModel::dismissTopicSelection
     )
 }
 
@@ -184,7 +191,7 @@ private fun LazyGridScope.topicSelection(
                             id = R.string.feature_following_topicselection_guidance_title
                         ),
                         textAlign = TextAlign.Start,
-                        style = MaterialTheme.typography.headlineSmall,
+                        style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
@@ -196,7 +203,6 @@ private fun LazyGridScope.topicSelection(
                         ),
                         textAlign = TextAlign.Start,
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold
                     )
                     Spacer( modifier = Modifier.height( 8.dp ) )
                     TopicSelection(
@@ -248,8 +254,7 @@ private fun TopicSelection(
     FlowRow (
         modifier = modifier
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy( 8.dp ),
-        verticalArrangement = Arrangement.spacedBy( 8.dp )
+        horizontalArrangement = Arrangement.Center,
     ) {
         topicSelectionUiState.topics.forEach {
             SingleTopicButton(
@@ -272,6 +277,7 @@ private fun SingleTopicButton(
     onClick: ( String, Boolean ) -> Unit,
 ) {
     FilterChip(
+        modifier = Modifier.padding( 4.dp, 0.dp ),
         selected = isSelected,
         colors = FilterChipDefaults.filterChipColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
@@ -283,7 +289,6 @@ private fun SingleTopicButton(
         },
         label = {
             Text(
-                modifier = Modifier.padding( 0.dp, 16.dp ),
                 text = name,
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold
