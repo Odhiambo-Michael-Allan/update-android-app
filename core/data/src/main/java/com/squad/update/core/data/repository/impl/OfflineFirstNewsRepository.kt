@@ -57,7 +57,7 @@ private val newsResources = listOf(
             minute = 0,
             second = 0,
             nanosecond = 0,
-        ).toInstant(TimeZone.UTC),
+        ).toInstant( TimeZone.UTC ),
         type = "Codelab",
         topics = listOf(topics[2]),
     ),
