@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import com.squad.update.core.model.data.DarkThemeConfig
 import com.squad.update.core.model.data.ThemeBrand
 import com.squad.update.core.model.data.UserData
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
@@ -138,6 +139,40 @@ class UpdatePreferencesDataSource @Inject constructor(
                     ThemeBrand.ANDROID -> ThemeBrandProto.THEME_BRAND_ANDROID
                 }
             }
+        }
+    }
+
+    suspend fun getChangeListVersions() = userPreferences.data
+        .map {
+            ChangeListVersions(
+                topicVersion = it.topicChangeListVersion,
+                newsResourceVersion = it.newsResourceChangeListVersion
+            )
+        }.firstOrNull() ?: ChangeListVersions()
+
+    /**
+     * Update the [ChangeListVersions] using [update].
+     */
+    suspend fun updateChangeListVersion( update: ChangeListVersions.() -> ChangeListVersions ) {
+        try {
+            userPreferences.updateData { currentPreferences ->
+                val updatedChangeListVersions = update(
+                    ChangeListVersions(
+                        topicVersion = currentPreferences.topicChangeListVersion,
+                        newsResourceVersion = currentPreferences.newsResourceChangeListVersion
+                    )
+                )
+                currentPreferences.copy {
+                    topicChangeListVersion = updatedChangeListVersions.topicVersion
+                    newsResourceChangeListVersion = updatedChangeListVersions.newsResourceVersion
+                }
+            }
+        } catch ( ioException: IOException ) {
+            Log.e(
+                "UPDATE-PREFERENCES-DATA-SOURCE",
+                "Failed to update user preferences",
+                ioException
+            )
         }
     }
 }

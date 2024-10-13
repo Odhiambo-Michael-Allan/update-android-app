@@ -1,8 +1,11 @@
 package com.squad.update.navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.squad.update.R
 import com.squad.update.core.designsystem.icon.UpdateIcons
+import com.squad.update.feature.following.navigation.FollowingRoute
+import kotlin.reflect.KClass
 import com.squad.update.feature.foryou.R as forYouR
 import com.squad.update.feature.following.R as followingR
 
@@ -14,20 +17,21 @@ import com.squad.update.feature.following.R as followingR
 enum class TopLevelDestination (
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
-    val iconTextId: Int,
-    val titleTextId: Int,
+    @StringRes val iconTextId: Int,
+    @StringRes val titleTextId: Int,
+    val route: KClass<*>,
 ) {
-    FOR_YOU(
-        selectedIcon = UpdateIcons.ForYou,
-        unselectedIcon = UpdateIcons.ForYouBorder,
-        iconTextId = forYouR.string.feature_foryou_title,
-        titleTextId = R.string.app_name
-    ),
+//    FOR_YOU(
+//        selectedIcon = UpdateIcons.ForYou,
+//        unselectedIcon = UpdateIcons.ForYouBorder,
+//        iconTextId = forYouR.string.feature_foryou_title,
+//        titleTextId = R.string.app_name
+//    ),
     FOLLOWING(
         selectedIcon = UpdateIcons.Following,
         unselectedIcon = UpdateIcons.FollowingBorder,
         iconTextId = followingR.string.feature_following_title,
         titleTextId = followingR.string.feature_following_title,
-
+        route = FollowingRoute::class
     )
 }

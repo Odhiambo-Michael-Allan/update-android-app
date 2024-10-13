@@ -122,7 +122,7 @@ internal fun UpdateAppContent(
                     },
                     modifier = Modifier
                         .testTag("UpdateNavItem")
-                        .then(if (hasUnread) Modifier.notificationDot() else Modifier)
+                        .then(if ( hasUnread ) Modifier.notificationDot() else Modifier)
                 )
             }
         },
@@ -150,7 +150,7 @@ internal fun UpdateAppContent(
             ) {
                 // Show the top app bar on top level destinations.
 //                val destination = appState.currentTopLevelDestination
-                val destination = TopLevelDestination.FOR_YOU
+                val destination = TopLevelDestination.FOLLOWING
                 val shouldShowTopAppBar = destination != null
                 if ( destination != null ) {
                     UpdateTopAppBar(

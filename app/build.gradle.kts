@@ -6,6 +6,8 @@ plugins {
     alias( libs.plugins.hilt )
 
     alias( libs.plugins.ksp )
+
+    alias( libs.plugins.update.android.application.flavors )
 }
 
 android {
@@ -17,7 +19,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.1"  // X.Y.Z; X = Major, Y = Minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,6 +28,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(

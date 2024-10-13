@@ -2,6 +2,8 @@ plugins {
     alias( libs.plugins.android.library )
     alias( libs.plugins.jetbrains.kotlin.android )
 
+    alias( libs.plugins.update.android.library )
+
     alias( libs.plugins.compose )
     alias( libs.plugins.hilt )
 
@@ -20,15 +22,15 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
+//    buildTypes {
+//        release {
+//            isMinifyEnabled = false
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//        }
+//    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8

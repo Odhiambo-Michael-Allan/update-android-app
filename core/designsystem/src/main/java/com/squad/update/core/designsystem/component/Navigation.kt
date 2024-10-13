@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationDrawerItemDefaults
@@ -14,11 +15,13 @@ import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteColors
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItemColors
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,43 +47,15 @@ fun UpdateNavigationSuiteScaffold(
 ) {
     val layoutType = NavigationSuiteScaffoldDefaults
         .calculateFromAdaptiveInfo( windowAdaptiveInfo )
-    val navigationSuiteItemColors = NavigationSuiteItemColors(
-        navigationBarItemColors = NavigationBarItemDefaults.colors(
-            selectedIconColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = UpdateNavigationDefaults.navigationContentColor(),
-            selectedTextColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = UpdateNavigationDefaults.navigationContentColor(),
-            indicatorColor = UpdateNavigationDefaults.navigationIndicatorColor()
-        ),
-        navigationRailItemColors = NavigationRailItemDefaults.colors(
-            selectedIconColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = UpdateNavigationDefaults.navigationContentColor(),
-            selectedTextColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = UpdateNavigationDefaults.navigationContentColor(),
-            indicatorColor = UpdateNavigationDefaults.navigationIndicatorColor()
-        ),
-        navigationDrawerItemColors = NavigationDrawerItemDefaults.colors(
-            selectedIconColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = UpdateNavigationDefaults.navigationContentColor(),
-            selectedTextColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = UpdateNavigationDefaults.navigationContentColor()
-        )
-    )
 
     NavigationSuiteScaffold(
+        modifier = modifier,
         navigationSuiteItems = {
             UpdateNavigationSuiteScope(
                 navigationSuiteScope = this,
-                navigationSuiteItemColors = navigationSuiteItemColors
             ).run( navigationSuiteItems )
         },
         layoutType = layoutType,
-        containerColor = Color.Transparent,
-        navigationSuiteColors = NavigationSuiteDefaults.colors(
-            navigationBarContentColor = UpdateNavigationDefaults.navigationContentColor(),
-            navigationRailContainerColor = Color.Transparent
-        ),
-        modifier = modifier,
     ) {
         content()
     }
@@ -91,7 +66,6 @@ fun UpdateNavigationSuiteScaffold(
  */
 class UpdateNavigationSuiteScope internal constructor(
     private val navigationSuiteScope: NavigationSuiteScope,
-    private val navigationSuiteItemColors: NavigationSuiteItemColors
 ) {
     fun item(
         modifier: Modifier,
@@ -109,7 +83,6 @@ class UpdateNavigationSuiteScope internal constructor(
             else icon()
         },
         label = label,
-        colors = navigationSuiteItemColors,
     )
 }
 
@@ -129,8 +102,6 @@ fun UpdateNavigationRail(
 ) {
     NavigationRail(
         modifier = modifier,
-        containerColor = Color.Transparent,
-        contentColor = UpdateNavigationDefaults.navigationContentColor(),
         header = header,
         content = content
     )
@@ -170,13 +141,6 @@ fun UpdateNavigationRailItem(
         enabled = enabled,
         label = label,
         alwaysShowLabel = alwaysShowLabel,
-        colors = NavigationRailItemDefaults.colors(
-            selectedIconColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = UpdateNavigationDefaults.navigationContentColor(),
-            selectedTextColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = UpdateNavigationDefaults.navigationContentColor(),
-            indicatorColor = UpdateNavigationDefaults.navigationIndicatorColor()
-        )
     )
 }
 
@@ -194,8 +158,6 @@ fun UpdateNavigationBar(
 ) {
     NavigationBar(
         modifier = modifier,
-        contentColor = UpdateNavigationDefaults.navigationContentColor(),
-        tonalElevation = 0.dp,
         content = content
     )
 }
@@ -234,28 +196,7 @@ fun RowScope.UpdateNavigationBarItem(
         enabled = enabled,
         label = label,
         alwaysShowLabel = alwaysShowLabel,
-        colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = UpdateNavigationDefaults.navigationContentColor(),
-            selectedTextColor = UpdateNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = UpdateNavigationDefaults.navigationContentColor(),
-            indicatorColor = UpdateNavigationDefaults.navigationIndicatorColor(),
-        ),
     )
-}
-
-/**
- * Update navigation default values.
- */
-object UpdateNavigationDefaults {
-    @Composable
-    fun navigationContentColor() = MaterialTheme.colorScheme.onSurfaceVariant
-
-    @Composable
-    fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
-
-    @Composable
-    fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
 }
 
 @ThemePreviews

@@ -3,6 +3,7 @@ package com.squad.update.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.squad.update.feature.following.navigation.FollowingRoute
 import com.squad.update.feature.following.navigation.followingScreen
 import com.squad.update.feature.foryou.navigation.FOR_YOU_ROUTE
 import com.squad.update.feature.foryou.navigation.forYouScreen
@@ -20,15 +21,14 @@ fun UpdateNavHost(
     modifier: Modifier = Modifier,
     appState: UpdateAppState,
     onShowSnackBar: suspend ( String, String? ) -> Boolean,
-    startDestination: String = FOR_YOU_ROUTE,
 ) {
     val navController = appState.navController
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = startDestination
+        startDestination = FollowingRoute
     ) {
-        forYouScreen( onTopicClick = {} )
+//        forYouScreen( onTopicClick = {} )
         followingScreen()
     }
 }

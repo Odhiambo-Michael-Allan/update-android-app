@@ -5,6 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -63,9 +64,10 @@ class UpdateAppState(
             .currentBackStackEntryAsState().value?.destination
 
     val currentTopLevelDestination: TopLevelDestination?
-        @Composable get() = when ( currentDestination?.route ) {
-            FOR_YOU_ROUTE -> TopLevelDestination.FOR_YOU
-            else -> null
+        @Composable get() {
+            return TopLevelDestination.entries.firstOrNull { topLevelDestination ->
+                currentDestination?.hasRoute( route = topLevelDestination.route ) ?: false
+            }
         }
 
     val isOffline = networkMonitor.isOnline
@@ -89,7 +91,7 @@ class UpdateAppState(
         userNewsResourceRepository.observeAllForFollowedTopics()
             .combine( userNewsResourceRepository.observeAllBookmarked() ) { forYouNewsResources, bookmarkedNewsResources ->
                 setOfNotNull(
-                    TopLevelDestination.FOR_YOU.takeIf { forYouNewsResources.any { !it.hasBeenViewed } },
+                    TopLevelDestination.FOLLOWING.takeIf { forYouNewsResources.any { !it.hasBeenViewed } },
                 )
 
             }.stateIn(
@@ -126,7 +128,6 @@ class UpdateAppState(
             restoreState = true
         }
         when ( topLevelDestination ) {
-            TopLevelDestination.FOR_YOU -> navController.navigateToForYou( topLevelNavOptions )
             TopLevelDestination.FOLLOWING -> navController.navigateToFollowing( topLevelNavOptions )
         }
     }

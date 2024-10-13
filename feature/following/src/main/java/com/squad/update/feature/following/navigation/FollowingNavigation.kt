@@ -9,13 +9,13 @@ import com.squad.update.feature.following.FollowingScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object ForYouRoute
+data object FollowingRoute
 
 fun NavController.navigateToFollowing( navOptions: NavOptions ) =
-    navigate( route = ForYouRoute, navOptions )
+    navigate( route = FollowingRoute, navOptions )
 
 fun NavGraphBuilder.followingScreen() {
-    composable<ForYouRoute> {
+    composable<FollowingRoute> {
         FollowingScreen {}
     }
 }
