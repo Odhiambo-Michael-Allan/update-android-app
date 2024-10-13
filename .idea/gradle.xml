@@ -40,6 +40,9 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/following" />
             <option value="$PROJECT_DIR$/feature/foryou" />
+            <option value="$PROJECT_DIR$/sync" />
+            <option value="$PROJECT_DIR$/sync/sync-test" />
+            <option value="$PROJECT_DIR$/sync/work" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

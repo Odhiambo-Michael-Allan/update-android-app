@@ -38,5 +38,13 @@ gradlePlugin {
             id = "update.android.application.flavors"
             implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
+        register( "hilt" ) {
+            id = "update.hilt"
+            implementationClass = "HiltConventionPlugin"
+        }
+        register( "androidFeature" ) {
+            id = "update.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
     }
 }

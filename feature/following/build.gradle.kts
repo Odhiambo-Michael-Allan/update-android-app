@@ -1,14 +1,11 @@
 plugins {
     alias( libs.plugins.android.library )
     alias( libs.plugins.jetbrains.kotlin.android )
+    alias( libs.plugins.compose )
 
     alias( libs.plugins.update.android.library )
-
-    alias( libs.plugins.compose )
-    alias( libs.plugins.hilt )
-
-    alias( libs.plugins.ksp )
     alias( libs.plugins.kotlin.serialization )
+    alias( libs.plugins.update.android.feature )
 }
 
 android {
@@ -46,9 +43,6 @@ android {
 
 dependencies {
 
-    implementation( projects.core.designsystem )
-    implementation( projects.core.ui )
-
     implementation( projects.core.data )
     implementation( projects.core.domain )
 
@@ -59,16 +53,10 @@ dependencies {
     implementation( platform( libs.androidx.compose.bom ) )
 
     implementation( libs.androidx.material3 )
-    implementation( libs.androidx.navigation.compose )
 
     implementation( libs.material )
-    implementation( libs.hilt.android )
-
-    implementation( libs.hilt.core )
-    ksp( libs.hilt.compiler )
 
     implementation( libs.kotlinx.datetime )
-    implementation( libs.androidx.hilt.navigation.compose )
 
     implementation( libs.kotlinx.serialization.json )
 

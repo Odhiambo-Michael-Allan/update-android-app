@@ -3,9 +3,7 @@ plugins {
     alias( libs.plugins.jetbrains.kotlin.android )
 
     alias( libs.plugins.update.android.library )
-
-    alias( libs.plugins.hilt )
-    alias( libs.plugins.ksp )
+    alias( libs.plugins.update.hilt )
 }
 
 android {
@@ -53,10 +51,6 @@ dependencies {
 
     implementation( libs.androidx.core.ktx )
     implementation( libs.kotlinx.datetime )
-
-    implementation( libs.hilt.android )
-    implementation( libs.hilt.core )
-    ksp( libs.hilt.compiler )
 
     testImplementation( libs.junit )
     testImplementation( libs.kotlinx.coroutines.test )
