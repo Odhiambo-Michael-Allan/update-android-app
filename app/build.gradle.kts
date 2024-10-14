@@ -71,6 +71,8 @@ dependencies {
     implementation( projects.core.ui )
     implementation( projects.feature.following )
 
+    implementation( projects.sync.work )
+
     implementation( libs.androidx.core.ktx )
     implementation( libs.androidx.lifecycle.runtime.ktx )
 

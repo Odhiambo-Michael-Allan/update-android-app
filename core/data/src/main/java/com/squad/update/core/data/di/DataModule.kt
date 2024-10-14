@@ -45,16 +45,5 @@ abstract class DataModule {
     internal abstract fun bindsTopicRepository(
         topicsRepository: OfflineFirstTopicsRepository,
     ): TopicsRepository
-
-    @Binds
-    internal abstract fun bindsSyncManager(
-        syncManager: NoOpSyncManager
-    ): SyncManager
-}
-
-class NoOpSyncManager @Inject constructor() : SyncManager {
-
-    override val isSyncing: Flow<Boolean> = MutableStateFlow( false )
-
-    override fun requestSync() = Unit
+    
 }

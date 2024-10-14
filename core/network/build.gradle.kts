@@ -5,7 +5,6 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.ProductFlavor
 
 plugins {
-    alias( libs.plugins.android.library )
     alias( libs.plugins.update.android.library )
 
     alias( libs.plugins.jetbrains.kotlin.android )

@@ -1,5 +1,6 @@
 plugins {
-    alias( libs.plugins.android.library )
+    alias( libs.plugins.update.android.library )
+    alias( libs.plugins.update.hilt )
     alias( libs.plugins.jetbrains.kotlin.android )
 }
 
@@ -33,11 +34,18 @@ android {
 }
 
 dependencies {
+    ksp( libs.hilt.ext.compiler )
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation( libs.androidx.work.ktx )
+    implementation( libs.hilt.ext.work )
+
+    implementation( projects.core.data )
+    implementation( projects.core.datastore )
+    implementation( projects.core.common )
+
+    androidTestImplementation( libs.androidx.work.testing )
+    androidTestImplementation( libs.hilt.android.testing )
+
+    androidTestImplementation( libs.kotlinx.coroutines.guava )
+    androidTestImplementation( projects.core.testing )
 }

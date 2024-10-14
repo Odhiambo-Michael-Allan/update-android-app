@@ -1,5 +1,6 @@
 plugins {
-    alias( libs.plugins.android.library )
+    alias( libs.plugins.update.android.library )
+    alias( libs.plugins.update.hilt )
     alias( libs.plugins.jetbrains.kotlin.android )
 }
 
