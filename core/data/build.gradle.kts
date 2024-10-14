@@ -48,6 +48,8 @@ dependencies {
     implementation( projects.core.database )
     implementation( projects.core.network )
 
+    implementation( projects.core.common )
+
     implementation( libs.androidx.core.ktx )
     implementation( libs.kotlinx.datetime )
 

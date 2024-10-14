@@ -45,5 +45,5 @@ abstract class DataModule {
     internal abstract fun bindsTopicRepository(
         topicsRepository: OfflineFirstTopicsRepository,
     ): TopicsRepository
-    
+
 }
