@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.squad.update.sync"
+    namespace = "com.squad.update.notifications"
     compileSdk = 34
 
     defaultConfig {
@@ -34,20 +34,16 @@ android {
 }
 
 dependencies {
-    ksp( libs.hilt.ext.compiler )
 
-    implementation( libs.androidx.work.ktx )
-    implementation( libs.hilt.ext.work )
-
-    implementation( projects.core.data )
-    implementation( projects.core.datastore )
-
+    implementation( projects.core.model )
     implementation( projects.core.common )
-    implementation( projects.core.designsystem )
 
-    androidTestImplementation( libs.androidx.work.testing )
-    androidTestImplementation( libs.hilt.android.testing )
+    compileOnly( platform( libs.androidx.compose.bom ) )
 
-    androidTestImplementation( libs.kotlinx.coroutines.guava )
-    androidTestImplementation( projects.core.testing )
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

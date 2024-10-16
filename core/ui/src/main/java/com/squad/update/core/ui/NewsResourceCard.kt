@@ -132,7 +132,7 @@ fun NewsResourceCardWithSideHeaderImage(
                 Text(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(end = 4.dp),
+                        .padding( end = 12.dp ),
                     text = userNewsResource.title,
                     style = MaterialTheme.typography.titleMedium
                 )

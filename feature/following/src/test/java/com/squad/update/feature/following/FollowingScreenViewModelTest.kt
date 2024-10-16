@@ -177,7 +177,7 @@ class FollowingScreenViewModelTest {
 
         assertEquals(
             NewsFeedUiState.Success(
-                feed = emptyList()
+                userNewsResources = emptyList()
             ),
             viewModel.feedState.value
         )
@@ -239,7 +239,7 @@ class FollowingScreenViewModelTest {
         )
         assertEquals(
             NewsFeedUiState.Success(
-                feed = emptyList()
+                userNewsResources = emptyList()
             ),
             viewModel.feedState.value
         )
@@ -278,7 +278,7 @@ class FollowingScreenViewModelTest {
 
         assertEquals(
             NewsFeedUiState.Success(
-                feed = sampleNewsResources.mapToUserNewsResources( userData )
+                userNewsResources = sampleNewsResources.mapToUserNewsResources( userData )
             ),
             viewModel.feedState.value,
         )
@@ -311,7 +311,7 @@ class FollowingScreenViewModelTest {
 
         assertEquals(
             NewsFeedUiState.Success(
-                feed = emptyList()
+                userNewsResources = emptyList()
             ),
             viewModel.feedState.value
         )
@@ -332,7 +332,7 @@ class FollowingScreenViewModelTest {
 
         assertEquals(
             NewsFeedUiState.Success(
-                feed = listOf(
+                userNewsResources = listOf(
                     UserNewsResource( sampleNewsResources[1], userData ),
                     UserNewsResource( sampleNewsResources[2], userData )
                 )

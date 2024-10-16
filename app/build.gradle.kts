@@ -96,6 +96,9 @@ dependencies {
     implementation( libs.kotlinx.datetime )
 
     implementation( libs.androidx.compose.material3.adaptive )
+    implementation( libs.androidx.compose.material3.navigationSuite )
+
+    implementation( libs.coil.kt )
 
     testImplementation( libs.junit )
 

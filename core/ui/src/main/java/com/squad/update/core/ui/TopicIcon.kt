@@ -14,7 +14,7 @@ fun TopicIcon(
 ) {
     DynamicAsyncImage(
         modifier = modifier
-            .size( 32.dp ),
+            .size( 18.dp ),
         placeholder = painterResource( id = R.drawable.ic_icon_placeholder ),
         imageUrl = imageUrl,
         contentDescription = null,

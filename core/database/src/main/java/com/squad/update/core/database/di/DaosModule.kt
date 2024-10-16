@@ -1,6 +1,8 @@
 package com.squad.update.core.database.di
 
 import com.squad.update.core.database.UpdateDatabase
+import com.squad.update.core.database.dao.NewsResourceDao
+import com.squad.update.core.database.dao.NewsResourceFtsDao
 import com.squad.update.core.database.dao.TopicDao
 import com.squad.update.core.database.dao.TopicFtsDao
 import dagger.Module
@@ -21,4 +23,14 @@ internal object DaosModule {
     fun providesTopicFtsDao(
         database: UpdateDatabase
     ): TopicFtsDao = database.topicFtsDao()
+
+    @Provides
+    fun providesNewsResourceDao(
+        database: UpdateDatabase
+    ): NewsResourceDao = database.newsResourceDao()
+
+    @Provides
+    fun providesNewsResourceFtsDao(
+        database: UpdateDatabase
+    ): NewsResourceFtsDao = database.newsResourceFtsDao()
 }

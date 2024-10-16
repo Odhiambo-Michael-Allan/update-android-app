@@ -68,6 +68,9 @@ class TestUpdateNetworkDataSource : UpdateNetworkDataSource {
         )
         changeLists[collectionType] = changeList.filterNot { it.id == id } + change
     }
+
+    fun changeListAfter( collectionType: CollectionType, version: Int ) =
+        changeLists.getValue( collectionType ).after( version )
 }
 
 fun List<NetworkChangeList>.after( version: Int? ): List<NetworkChangeList> = when ( version ) {

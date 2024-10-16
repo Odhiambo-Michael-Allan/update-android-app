@@ -19,6 +19,9 @@
       <SelectionState runConfigName="SyncWorkerTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="NewsResourceDaoTest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

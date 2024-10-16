@@ -1,6 +1,5 @@
 package com.squad.update.feature.following
 
-import android.graphics.Paint.Align
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,17 +17,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
-import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,7 +35,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,17 +42,18 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.squad.update.core.designsystem.component.DynamicAsyncImage
 import com.squad.update.core.designsystem.component.UpdateButton
 import com.squad.update.core.designsystem.component.UpdateOutlinedButton
 import com.squad.update.core.designsystem.theme.UpdateTheme
 import com.squad.update.core.model.data.UserNewsResource
 import com.squad.update.core.ui.DevicePreviews
 import com.squad.update.core.ui.NewsFeedUiState
-import com.squad.update.core.ui.PreviewParameterData
 import com.squad.update.core.ui.TopicIcon
 import com.squad.update.core.ui.UserNewsResourcePreviewParameterProvider
 import com.squad.update.core.ui.newsFeed
+import com.squad.update.core.ui.subListNonStrict
+
+private const val MAX_NUMBER_OF_PREVIEW_TOPICS = 10
 
 @Composable
 internal fun FollowingScreen(
@@ -256,7 +248,7 @@ private fun TopicSelection(
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
     ) {
-        topicSelectionUiState.topics.forEach {
+        topicSelectionUiState.topics.subListNonStrict( MAX_NUMBER_OF_PREVIEW_TOPICS ).forEach {
             SingleTopicButton(
                 name = it.topic.name,
                 topicId = it.topic.id,
@@ -312,7 +304,7 @@ fun FollowingScreenTopicSelection(
         FollowingScreen(
             isSyncing = true,
             newsFeedUiState = NewsFeedUiState.Success(
-                feed = userNewsResources
+                userNewsResources = userNewsResources
             ),
             topicSelectionUiState = TopicSelectionUiState.Shown(
                 topics = userNewsResources.flatMap { news -> news.followableTopics }

@@ -49,6 +49,7 @@ dependencies {
     implementation( projects.core.network )
 
     implementation( projects.core.common )
+    implementation( projects.core.notifications )
 
     implementation( libs.androidx.core.ktx )
     implementation( libs.kotlinx.datetime )

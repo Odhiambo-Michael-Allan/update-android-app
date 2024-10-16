@@ -10,6 +10,7 @@ import androidx.work.WorkerParameters
 import com.squad.update.core.common.network.Dispatcher
 import com.squad.update.core.common.network.UpdateDispatchers
 import com.squad.update.core.data.Synchronizer
+import com.squad.update.core.data.repository.NewsRepository
 import com.squad.update.core.data.repository.TopicsRepository
 import com.squad.update.core.datastore.ChangeListVersions
 import com.squad.update.core.datastore.UpdatePreferencesDataSource
@@ -33,6 +34,7 @@ internal class SyncWorker @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val updatePreferences: UpdatePreferencesDataSource,
     private val topicRepository: TopicsRepository,
+    private val newsRepository: NewsRepository,
     @Dispatcher( UpdateDispatchers.IO ) private val ioDispatcher: CoroutineDispatcher,
 ) : CoroutineWorker( appContext, workerParams ), Synchronizer {
 
@@ -42,7 +44,8 @@ internal class SyncWorker @AssistedInject constructor(
 
         // First sync the repositories in parallel
         val syncedSuccessfully = awaitAll(
-            async { topicRepository.sync() }
+            async { topicRepository.sync() },
+            async { newsRepository.sync() }
         ).all { it }
 
         if ( syncedSuccessfully ) {

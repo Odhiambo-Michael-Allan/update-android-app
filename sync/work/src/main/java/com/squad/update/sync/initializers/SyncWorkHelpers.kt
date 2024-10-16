@@ -10,6 +10,7 @@ import androidx.work.Constraints
 import androidx.work.ForegroundInfo
 import androidx.work.NetworkType
 import com.squad.update.sync.R
+import com.squad.update.core.designsystem.R as designSystemR
 
 // All sync work needs an internet connection.
 val SyncConstraints
@@ -49,6 +50,7 @@ private fun Context.syncWorkNotification(): Notification {
         this,
         SYNC_NOTIFICATION_CHANNEL_ID
     ).setContentTitle( getString( R.string.sync_work_notification_title ) )
+        .setSmallIcon( designSystemR.drawable.core_designsystem_ic_placeholder_default )
         .setPriority( NotificationCompat.PRIORITY_DEFAULT )
         .build()
 }

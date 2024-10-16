@@ -13,10 +13,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -49,58 +45,63 @@ fun LazyGridScope.newsFeed(
     when ( feedState ) {
         NewsFeedUiState.Loading -> Unit
         is NewsFeedUiState.Success -> {
-            feedState.feed.groupBy { it.followableTopics[0] }.forEach { ( followableTopic, newsResources ) ->
-                item (
-                    span = {
-                        GridItemSpan( maxLineSpan )
-                    }
-                ) {
-                    TopicHeader(
-                        modifier = Modifier.padding( 16.dp, 4.dp ),
-                        followableTopic = followableTopic,
-                        onToggleFollowed = {}
-                    )
-                }
-                newsResources.subListNonStrict( 3 ).forEach { newsResource ->
-                    item {
-                        NewsResourceCardWithSideHeaderImage(
-                            userNewsResource = newsResource,
-                            isBookmarked = newsResource.isSaved,
-                            onToggleBookmark = { /*TODO*/ },
-                            onClick = {}
-                        )
-                    }
-                }
-                item (
-                    span = {
-                        GridItemSpan( maxLineSpan )
-                    },
-                ) {
-                    UpdateButton(
-                        modifier = Modifier.padding( 16.dp ),
-                        onClick = { /*TODO*/ }
+            feedState.userNewsResources
+                .filter{ newsResource ->
+                    newsResource.followableTopics.first().isFollowed
+                }.groupBy {
+                    it.followableTopics.first()
+                }.forEach { ( followableTopic, newsResources ) ->
+                    item (
+                        span = {
+                            GridItemSpan( maxLineSpan )
+                        }
                     ) {
-                        Text(
-                            text = stringResource(
-                                id = R.string.more_stories_about_topic,
-                                followableTopic.topic.name
-                            ),
-                            fontWeight = FontWeight.SemiBold
+                        TopicHeader(
+                            modifier = Modifier.padding( 16.dp, 4.dp ),
+                            followableTopic = followableTopic,
+                            onToggleFollowed = {}
                         )
                     }
-                }
-                item(
-                    span = {
-                        GridItemSpan( maxLineSpan )
-                    },
-                ) {
-                    HorizontalDivider(
-                        thickness = 10.dp,
-                        color = DividerDefaults.color.copy(
-                            alpha = 0.5f
+                    newsResources.subListNonStrict( 3 ).forEach { newsResource ->
+                        item {
+                            NewsResourceCardWithSideHeaderImage(
+                                userNewsResource = newsResource,
+                                isBookmarked = newsResource.isSaved,
+                                onToggleBookmark = { /*TODO*/ },
+                                onClick = {}
+                            )
+                        }
+                    }
+                    item (
+                        span = {
+                            GridItemSpan( maxLineSpan )
+                        },
+                    ) {
+                        UpdateButton(
+                            modifier = Modifier.padding( 16.dp ),
+                            onClick = { /*TODO*/ }
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    id = R.string.more_stories_about_topic,
+                                    followableTopic.topic.name
+                                ),
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                    item(
+                        span = {
+                            GridItemSpan( maxLineSpan )
+                        },
+                    ) {
+                        HorizontalDivider(
+                            thickness = 10.dp,
+                            color = DividerDefaults.color.copy(
+                                alpha = 0.5f
+                            )
                         )
-                    )
-                }
+                    }
             }
         }
     }
@@ -119,7 +120,8 @@ fun TopicHeader(
     ) {
         Row (
             modifier = Modifier.weight( 1f ),
-            horizontalArrangement = Arrangement.spacedBy( 8.dp )
+            horizontalArrangement = Arrangement.spacedBy( 12.dp ),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             TopicIcon(
                 imageUrl = followableTopic.topic.imageUrl
@@ -170,7 +172,7 @@ sealed interface NewsFeedUiState {
         /**
          * The list of news resources contained in this feed.
          */
-        val feed: List<UserNewsResource>
+        val userNewsResources: List<UserNewsResource>
     ) : NewsFeedUiState
 }
 
