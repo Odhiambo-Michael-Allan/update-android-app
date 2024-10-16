@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -86,7 +87,8 @@ fun LazyGridScope.newsFeed(
                                     id = R.string.more_stories_about_topic,
                                     followableTopic.topic.name
                                 ),
-                                fontWeight = FontWeight.SemiBold
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
@@ -97,9 +99,7 @@ fun LazyGridScope.newsFeed(
                     ) {
                         HorizontalDivider(
                             thickness = 10.dp,
-                            color = DividerDefaults.color.copy(
-                                alpha = 0.5f
-                            )
+                            color = MaterialTheme.colorScheme.surfaceVariant
                         )
                     }
             }

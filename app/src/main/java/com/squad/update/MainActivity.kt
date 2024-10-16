@@ -7,12 +7,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,6 +24,7 @@ import com.squad.update.MainActivityUiState.*
 import com.squad.update.core.data.repository.UserNewsResourceRepository
 import com.squad.update.core.data.util.NetworkMonitor
 import com.squad.update.core.data.util.TimeZoneMonitor
+import com.squad.update.core.designsystem.theme.ThemeColorSchemes
 import com.squad.update.core.model.data.DarkThemeConfig
 import com.squad.update.core.model.data.ThemeBrand
 import com.squad.update.core.ui.LocalTimeZone
@@ -88,19 +91,19 @@ class MainActivity : ComponentActivity() {
             // as the default enableEdgeToEdge call, but we manually resolve whether or not to show
             // dark theme using uiState, since it can be different than the configuration's dark
             // theme value based on the user preference.
-            DisposableEffect( darkTheme ) {
-                enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.auto(
-                        android.graphics.Color.TRANSPARENT,
-                        android.graphics.Color.TRANSPARENT
-                    ) { darkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
-                )
-                onDispose {}
-            }
+//            DisposableEffect( darkTheme ) {
+//                enableEdgeToEdge(
+//                    statusBarStyle = SystemBarStyle.auto(
+//                        lightScrim = lightScrim,
+//                        darkScrim = darkScrim
+//                    ) { darkTheme },
+//                    navigationBarStyle = SystemBarStyle.auto(
+//                        lightScrim = ThemeColorSchemes.lightScrim.toArgb(),
+//                        darkScrim = ThemeColorSchemes.darkScrim.toArgb()
+//                    ) { darkTheme },
+//                )
+//                onDispose {}
+//            }
 
             val appState = rememberUpdateAppState(
                 networkMonitor = networkMonitor,
@@ -115,7 +118,8 @@ class MainActivity : ComponentActivity() {
             ) {
                 UpdateTheme(
                     darkTheme = darkTheme,
-                    disableDynamicTheming = shouldDisableDynamicTheming( uiState = uiState ),
+                    dynamicColor = false
+//                    dynamicColor = shouldDisableDynamicTheming( uiState = uiState ),
                 ) {
                     UpdateApp( appState )
                 }

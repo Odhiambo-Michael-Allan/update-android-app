@@ -11,6 +11,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.squad.update.core.designsystem.theme.UpdateTheme
 
@@ -30,6 +31,7 @@ fun UpdateButton(
     enabled: Boolean = true,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     onClick: () -> Unit,
+    containerColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     content: @Composable RowScope.() -> Unit,
 ) {
     FilledTonalButton(
@@ -37,7 +39,7 @@ fun UpdateButton(
         enabled = enabled,
         contentPadding = contentPadding,
         colors = ButtonDefaults.filledTonalButtonColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = containerColor
         ),
         onClick = { /*TODO*/ }
     ) {

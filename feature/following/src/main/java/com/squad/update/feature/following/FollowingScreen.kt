@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -223,6 +224,11 @@ private fun LazyGridScope.topicSelection(
                                 .padding( horizontal = 8.dp ),
                             onClick = saveFollowedTopics,
                             enabled = topicSelectionUiState.isDismissible,
+                            containerColor = if ( topicSelectionUiState.isDismissible ) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                Color.Unspecified
+                            }
                         ) {
                             Text(
                                 text = stringResource( id = R.string.feature_following_done ),
@@ -271,11 +277,6 @@ private fun SingleTopicButton(
     FilterChip(
         modifier = Modifier.padding( 4.dp, 0.dp ),
         selected = isSelected,
-        colors = FilterChipDefaults.filterChipColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
-                alpha = .7f
-            )
-        ),
         onClick = {
             onClick( topicId, !isSelected )
         },

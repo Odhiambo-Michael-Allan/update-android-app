@@ -14,10 +14,20 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
+
+private val DarkColorScheme = ThemeColorSchemes.createDarkColorScheme(
+    ThemeColors.PrimaryColor
+)
+
+private val LightColorScheme = ThemeColorSchemes.createLightColorScheme(
+    ThemeColors.PrimaryColor
+)
 
 /**
  * Update Theme.
@@ -32,29 +42,48 @@ import androidx.compose.ui.unit.dp
 fun UpdateTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    disableDynamicTheming: Boolean = true,
+    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
 
+//    val colorScheme = when {
+//        !disableDynamicTheming && supportsDynamicTheming() -> {
+//            val context = LocalContext.current
+//            if ( darkTheme ) dynamicDarkColorScheme( context )
+//            else dynamicLightColorScheme( context )
+//        }
+//        else -> {
+//            if ( darkTheme ) ThemeColorSchemes.createDarkColorScheme( ThemeColors.PrimaryColor )
+//            else ThemeColorSchemes.createLightColorScheme( ThemeColors.PrimaryColor )
+//        }
+//    }
+//
+//    val view = LocalView.current
+//    if ( !view.isInEditMode ) {
+//        SideEffect {
+//            val window = ( view.context as Activity ).window
+//            window.navigationBarColor = colorScheme.surfaceColorAtElevation(
+//                NavigationBarDefaults.Elevation
+//            ).toArgb()
+//        }
+//    }
+
     val colorScheme = when {
-        !disableDynamicTheming && supportsDynamicTheming() -> {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if ( darkTheme ) dynamicDarkColorScheme( context )
-            else dynamicLightColorScheme( context )
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        else -> {
-            if ( darkTheme ) ThemeColorSchemes.createDarkColorScheme( ThemeColors.PrimaryColor )
-            else ThemeColorSchemes.createLightColorScheme( ThemeColors.PrimaryColor )
-        }
+
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
     }
 
     val view = LocalView.current
     if ( !view.isInEditMode ) {
         SideEffect {
             val window = ( view.context as Activity ).window
-            window.navigationBarColor = colorScheme.surfaceColorAtElevation(
-                NavigationBarDefaults.Elevation
-            ).toArgb()
+            window.statusBarColor = colorScheme.background.toArgb()
+            window.navigationBarColor = colorScheme.surfaceContainer.toArgb()
         }
     }
 
